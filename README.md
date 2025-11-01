@@ -52,6 +52,40 @@ To filter the products by categories and use-cases, see the 🌟 [web version of
 The list is done according to our best knowledge, although definitely not comprehensive. Check out also <a href="https://github.com/e2b-dev/awesome-sdks-for-ai-agents">the Awesome List of SDKs for AI Agents</a>.
 Discussion and feedback appreciated! :heart:
 
+## AI Agent Workbench
+
+This repository now includes a lightweight agent workbench that can load agent blueprints, validate them against a JSON schema, and execute them via CLI or HTTP.
+
+### Installation
+
+```bash
+npm install
+cp .env.example .env
+```
+
+### CLI usage
+
+```bash
+npm run agent -- run --file agents/demo.json --input "suche Rust tutorials"
+npm run agent -- state --file agents/demo.json
+npm run agent -- stop
+```
+
+### HTTP server
+
+```bash
+npm run dev:server
+# In another terminal
+curl -X POST http://localhost:8787/run -H "Content-Type: application/json" \
+  -d '{"file":"agents/demo.json","input":"suche Rust tutorials"}'
+curl http://localhost:8787/state
+curl -X POST http://localhost:8787/stop
+```
+
+### Agent schema
+
+Agent blueprints are validated using [`schemas/agent.schema.json`](schemas/agent.schema.json) (Draft 2020-12). Required fields: `name`, `model`, and `instructions`. Optional fields include `schema_version`, `description`, `temperature`, `tools`, and `triggers`.
+
 ## Have anything to add?
 Create a pull request or fill in this [form](https://forms.gle/UXQFCogLYrPFvfoUA). Please keep the alphabetical order and in the correct category.
 
