@@ -1,0 +1,22 @@
+{ "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"AgentConfig","type":"object","required":["name","model","instructions"],
+  "properties":{
+    "schema_version":{"type":"string","pattern":"^\\d+\\.\\d+\\.\\d+$"},
+    "name":{"type":"string","minLength":1},
+    "description":{"type":"string"},
+    "model":{"type":"string"},
+    "temperature":{"type":"number","minimum":0,"maximum":2,"default":0.7},
+    "instructions":{"type":"string"},
+    "tools":{"type":"array","items":{
+      "type":"object","required":["name","type"],
+      "properties":{
+        "name":{"type":"string"},
+        "type":{"type":"string","enum":["http","python","db","search"]},
+        "config":{"type":"object","additionalProperties":true},
+        "allowed_hosts":{"type":"array","items":{"type":"string"}}
+      },
+      "additionalProperties":false
+    },"default":[]},
+    "triggers":{"type":"array","items":{"type":"string","enum":["cron","webhook","manual"]},"default":[]}
+  },
+  "additionalProperties":false }
